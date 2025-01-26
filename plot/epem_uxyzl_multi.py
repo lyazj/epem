@@ -38,7 +38,6 @@ for axis in 'uxyzl':
         P3, P4 = momenta.transpose(1, 0, 2)
         print('%.4f' % theta_3, W12, W34)
         W = W12 * W34 * np.ones_like(P3[:,0])
-        print(P3.shape, P4.shape, W.shape)
         P3s.append(P3); P4s.append(P4); Ws.append(W)
     P3, P4, W = map(np.concatenate, (P3s, P4s, Ws))
     events.append((P3, P4, W))
