@@ -1,6 +1,6 @@
-process epem_u = E1, e1 => E1, e1
-sqrts = 0.03197690169481715 GeV  # 1 GeV incident positron
-n_events = 100000
+process epem = E1, e1 => E1, e1
+sqrts = $SUB:com_energy GeV
+n_events = $SUB:nevent
 sample_format = lhef
 
 beams = E1, e1
@@ -8,4 +8,4 @@ beams_pol_density = @(), @(-1)  # u polarized
 
 cuts = all 0.14159265358979312 <= Theta <= 3 [E1]
 
-simulate (epem_u)
+simulate (epem)

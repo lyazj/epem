@@ -1,6 +1,6 @@
-process emem_z = e1, e1 => e1, e1
-sqrts = 0.03197690169481715 GeV  # 1 GeV incident electron
-n_events = 100000
+process emem = e1, e1 => e1, e1
+sqrts = $SUB:com_energy GeV
+n_events = $SUB:nevent
 sample_format = lhef
 
 beams = e1, e1
@@ -8,4 +8,4 @@ beams_pol_density = @(1:1:2), @(-1)  # z polarized
 
 cuts = all 0.14159265358979312 <= Theta <= 3 [e1]
 
-simulate (emem_z)
+simulate (emem)
