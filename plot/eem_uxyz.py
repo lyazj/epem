@@ -20,12 +20,16 @@ def load(path):
 
 epem = []
 for axis in 'uxyz':
-    momenta = load(f'../run/epem_{axis}.lhe')
+    path = f'../run/epem_{axis}_0.0503rad/epem.lhe'
+    print(path)
+    momenta = load(path)
     P3, P4 = momenta.transpose(1, 0, 2)
     epem.append((P3, P4))
 emem = []
 for axis in 'uxyz':
-    momenta = load(f'../run/emem_{axis}.lhe')
+    path = f'../run/emem_{axis}_0.0503rad/emem.lhe'
+    print(path)
+    momenta = load(path)
     P3, P4 = momenta.transpose(1, 0, 2)
     emem.append((P3, P4))
 

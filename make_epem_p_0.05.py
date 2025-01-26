@@ -17,6 +17,7 @@ for positron_polarization in 'uxyz':
     epem_card = WZDCard.WZDCard(f'cards/epem_{positron_polarization}.sin')
     args = []
     for theta_p, e_com_p in zip(theta_ps, e_com_ps):
+        print(f'run/epem_{positron_polarization}_{theta_p:.4f}rad')
         if os.path.exists(f'run/epem_{positron_polarization}_{theta_p:.4f}rad'): continue
         args.append({
             'workdir': f'run/epem_{positron_polarization}_{theta_p:.4f}rad',

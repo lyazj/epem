@@ -18,7 +18,9 @@ def load(path):
 
 events = []
 for axis in 'uxyz':
-    momenta = load(f'../run/emem_{axis}.lhe')
+    path = f'../run/emem_{axis}_0.0503rad/emem.lhe'
+    print(path)
+    momenta = load(path)
     P3, P4 = momenta.transpose(1, 0, 2)
     events.append((P3, P4))
 
