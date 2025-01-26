@@ -19,14 +19,14 @@ def load(path):
     return np.array(momenta)
 
 epem = []
-for axis in 'uxyz':
+for axis in 'uzl':
     path = f'../run/epem_{axis}_0.0503rad/epem.lhe'
     print(path)
     momenta = load(path)
     P3, P4 = momenta.transpose(1, 0, 2)
     epem.append((P3, P4))
 emem = []
-for axis in 'uxyz':
+for axis in 'uzl':
     path = f'../run/emem_{axis}_0.0503rad/emem.lhe'
     print(path)
     momenta = load(path)
