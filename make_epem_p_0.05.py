@@ -13,7 +13,7 @@ m_e = np.mean(np.sqrt(p_es[:,0]**2 - np.sum(p_es[:,1:]**2, axis=1)))
 p_com_ps = p_ps + [[m_e, 0, 0, 0]]
 e_com_ps = np.sqrt(p_com_ps[:,0]**2 - np.sum(p_com_ps[:,1:]**2, axis=1))
 
-for positron_polarization in 'uxyz':
+for positron_polarization in 'uxyzl':
     epem_card = WZDCard.WZDCard(f'cards/epem_{positron_polarization}.sin')
     args = []
     for theta_p, e_com_p in zip(theta_ps, e_com_ps):
