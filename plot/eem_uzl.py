@@ -33,15 +33,17 @@ for axis in 'uzl':
     P3, P4 = momenta.transpose(1, 0, 2)
     emem.append((P3, P4))
 
-for epem_axis, (P7, P8) in zip('uxyz', epem):
+for epem_axis, (P7, P8) in zip('uzl', epem):
+    if epem_axis == 'z': epem_axis = 'r'
     theta_7 = np.arctan2(np.hypot(P7[:,1], P7[:,2]), P7[:,3])
-    for emem_axis, (P9, P10) in zip('uxyz', emem):
+    for emem_axis, (P9, P10) in zip('uzl', emem):
+        if emem_axis == 'z': emem_axis = 'r'
         theta_9 = np.arctan2(np.hypot(P9[:,1], P9[:,2]), P9[:,3])
         plt.hist2d(theta_7, theta_9, bins=100, density=True, norm=mcolors.LogNorm())
-        plt.xlabel(r'$\theta_7$ [rad]')
-        plt.ylabel(r'$\theta_9$ [rad]')
+        plt.xlabel(r'$\theta^\prime_7$ [rad]')
+        plt.ylabel(r'$\theta^\prime_9$ [rad]')
         cbar = plt.colorbar()
         cbar.set_label(f'{epem_axis}{emem_axis}')
         plt.tight_layout()
-        plt.savefig(f'eem_uxyz_{epem_axis}{emem_axis}.pdf')
+        plt.savefig(f'eem_uzl_{epem_axis}{emem_axis}.pdf')
         plt.clf()

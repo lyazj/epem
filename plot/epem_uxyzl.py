@@ -26,9 +26,10 @@ for axis in 'uxyzl':
     events.append((P3, P4))
 
 for axis, (P3, P4) in zip('uxyzl', events):
-    theta_3 = np.arctan2(np.hypot(P3[:,1], P3[:,2]), P3[:,3])
-    plt.hist(theta_3, bins=50, histtype='step', label=f'{axis} polarized')
-plt.xlabel(r'$\theta_3$ [rad]')
+    theta_7 = np.arctan2(np.hypot(P3[:,1], P3[:,2]), P3[:,3])
+    if axis == 'z': axis = 'r'
+    plt.hist(theta_7, bins=50, histtype='step', label=f'{axis} polarized')
+plt.xlabel(r'$\theta^\prime_7$ [rad]')
 plt.ylabel('Events')
 plt.yscale('log')
 plt.legend()
@@ -38,9 +39,10 @@ plt.savefig('epem_uxyzl_theta.pdf')
 plt.clf()
 
 for axis, (P3, P4) in zip('uxyzl', events):
-    phi_3 = np.arctan2(P3[:,2], P3[:,1])
-    plt.hist(phi_3, bins=10, histtype='step', label=f'{axis} polarized')
-plt.xlabel(r'$\phi_3$ [rad]')
+    phi_7 = np.arctan2(P3[:,2], P3[:,1])
+    if axis == 'z': axis = 'r'
+    plt.hist(phi_7, bins=10, histtype='step', label=f'{axis} polarized')
+plt.xlabel(r'$\phi_7$ [rad]')
 plt.ylabel('Events')
 plt.yscale('log')
 plt.legend()
