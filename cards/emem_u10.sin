@@ -1,0 +1,11 @@
+process emem = e1, e1 => e1, e1
+sqrts = $SUB:com_energy GeV
+n_events = $SUB:nevent
+sample_format = lhef
+
+beams = e1, e1
+beams_pol_density = @(), @(-1:-1:0.55, 1:1:0.45)  # u polarized
+
+cuts = all 0.14159265358979312 <= Theta <= 3 [e1]
+
+simulate (emem)

@@ -63,16 +63,17 @@ for axis in 'uzl':
 P7s, P8s, P9s, P10s, Ws = [], [], [], [], []
 for epem_axis, (P7, P8, W3) in zip('uzl', epem_events):
     for emem_axis, (P9, P10, W4) in zip('uzl', emem_events):
-        if epem_axis + emem_axis not in ['zl', 'lz']: continue
+        if epem_axis + emem_axis not in ['zz', 'll']: continue
         P7s.append(P7); P8s.append(P8); P9s.append(P9); P10s.append(P10); Ws.append(W3 * W4)
 P7, P8, P9, P10, W = map(np.concatenate, (P7s, P8s, P9s, P10s, Ws))
 cos_theta_7 = np.cos(np.arctan2(np.hypot(P7[:,1], P7[:,2]), P7[:,3]))
 cos_theta_9 = np.cos(np.arctan2(np.hypot(P9[:,1], P9[:,2]), P9[:,3]))
-plt.hist2d(cos_theta_7, cos_theta_9, bins=100, density=True, norm=mcolors.LogNorm())
+h, x, y, _, = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, density=True, norm=mcolors.LogNorm())
 plt.xlabel(r'$\cos\theta^\prime_7$')
 plt.ylabel(r'$\cos\theta^\prime_9$')
 cbar = plt.colorbar()
 cbar.set_label(r'$\frac{1}{\sigma}\frac{\mathrm{d}^2\sigma}{\mathrm{d}\cos\theta^\prime_7\mathrm{d}\cos\theta^\prime_9}$' + f' epem')
 plt.tight_layout()
 plt.savefig(f'eem_uzl_epem.pdf')
+np.savez('eem_uzl_epem.npz', h=h, x=x, y=y)
 plt.clf()

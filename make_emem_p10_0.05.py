@@ -14,13 +14,13 @@ p_com_es = p_es + [[m_e, 0, 0, 0]]
 e_com_es = np.sqrt(p_com_es[:,0]**2 - np.sum(p_com_es[:,1:]**2, axis=1))
 
 for incoming_polarization in 'uxyzl':
-    emem_card = WZDCard.WZDCard(f'cards/emem_{incoming_polarization}.sin')
+    emem_card = WZDCard.WZDCard(f'cards/emem_{incoming_polarization}10.sin')
     args = []
     for theta_p, e_com_e in zip(theta_ps, e_com_es):
-        print(f'run/emem_{incoming_polarization}_{theta_p:.4f}rad')
-        if os.path.exists(f'run/emem_{incoming_polarization}_{theta_p:.4f}rad'): continue
+        print(f'run/emem_{incoming_polarization}10_{theta_p:.4f}rad')
+        if os.path.exists(f'run/emem_{incoming_polarization}10_{theta_p:.4f}rad'): continue
         args.append({
-            'workdir': f'run/emem_{incoming_polarization}_{theta_p:.4f}rad',
+            'workdir': f'run/emem_{incoming_polarization}10_{theta_p:.4f}rad',
             'nevent': 100000, 'com_energy': e_com_e,  # GeV
         })
     pool.map(emem_card.run, args)

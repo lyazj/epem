@@ -67,16 +67,17 @@ for epem_axis, (P7, P8, W3) in zip('uzl', epem_events):
         if emem_axis == 'z': emem_axis = 'r'
         cos_theta_9 = np.cos(np.arctan2(np.hypot(P9[:,1], P9[:,2]), P9[:,3]))
         W = W3 * W4
-        z, x, y, _ = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, density=True, norm=mcolors.LogNorm())
+        h, x, y, _ = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, density=True, norm=mcolors.LogNorm())
         plt.xlabel(r'$\cos\theta^\prime_7$')
         plt.ylabel(r'$\cos\theta^\prime_9$')
         cbar = plt.colorbar()
         cbar.set_label(r'$\frac{1}{\sigma}\frac{\mathrm{d}^2\sigma}{\mathrm{d}\cos\theta^\prime_7\mathrm{d}\cos\theta^\prime_9}$' + f' {epem_axis}{emem_axis}')
         plt.tight_layout()
         plt.savefig(f'eem_uzl_{epem_axis}{emem_axis}.pdf')
+        np.savez(f'eem_uzl_{epem_axis}{emem_axis}.npz', h=h, x=x, y=y)
         plt.clf()
         #x, y = map(lambda x: np.mean([x[:-1], x[1:]], axis=0), (x, y))
-        #x, y = np.meshgrid(x, y); z = z.T
+        #x, y = np.meshgrid(y, x); z = h.T
         #plt.contourf(x, y, z, norm=mcolors.LogNorm())
         #plt.xlabel(r'$\cos\theta^\prime_7$')
         #plt.ylabel(r'$\cos\theta^\prime_9$')
