@@ -51,10 +51,15 @@ s, b = 0, 0
 for j, imax in enumerate(thr):
     s += sig[:imax + 1, j].sum()
     b += bkg[:imax + 1, j].sum()
+r = sig[:int(len(x) * 0.75), int(len(y) * 0.125):int(len(y) * 0.875)].sum()
 print(s)
 print(b)
-sf = 1e3 * 86400 / len(x) / len(y)
+print(r)
+s -= np.maximum(0, b)
+sf = 1.4e2 / r  # 1 s
 print(sf)
 s *= sf
 b *= sf
+print(s)
+print(b)
 print(s / np.sqrt(b))
