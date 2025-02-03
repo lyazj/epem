@@ -60,12 +60,17 @@ for axis in 'uzl':
     P3, P4, W = map(np.concatenate, (P3s, P4s, Ws))
     emem_events.append((P3, P4, W))
 
+plt.figure(figsize=(4, 3), dpi=300)
 P7s, P8s, P9s, P10s, Ws = [], [], [], [], []
 for epem_axis, (P7, P8, W3) in zip('uzl', epem_events):
     for emem_axis, (P9, P10, W4) in zip('uzl', emem_events):
         if epem_axis + emem_axis not in ['zz', 'll']: continue
         P7s.append(P7); P8s.append(P8); P9s.append(P9); P10s.append(P10); Ws.append(W3 * W4)
 P7, P8, P9, P10, W = map(np.concatenate, (P7s, P8s, P9s, P10s, Ws))
+indexs = np.arange(P7.shape[0])
+np.random.shuffle(indexs)
+indexs = indexs[:indexs.shape[0] // 2]
+P7, P8, P9, P10, W = map(lambda x: x[indexs], (P7, P8, P9, P10, W))
 cos_theta_7 = np.cos(np.arctan2(np.hypot(P7[:,1], P7[:,2]), P7[:,3]))
 cos_theta_9 = np.cos(np.arctan2(np.hypot(P9[:,1], P9[:,2]), P9[:,3]))
 h, x, y, _, = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, density=True, norm=mcolors.LogNorm())

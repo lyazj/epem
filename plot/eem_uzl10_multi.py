@@ -60,6 +60,7 @@ for axis in 'uzl':
     P3, P4, W = map(np.concatenate, (P3s, P4s, Ws))
     emem_events.append((P3, P4, W))
 
+plt.figure(figsize=(4, 3), dpi=300)
 for epem_axis, (P7, P8, W3) in zip('uzl', epem_events):
     if epem_axis == 'z': epem_axis = 'r'
     cos_theta_7 = np.cos(np.arctan2(np.hypot(P7[:,1], P7[:,2]), P7[:,3]))
@@ -71,7 +72,7 @@ for epem_axis, (P7, P8, W3) in zip('uzl', epem_events):
         plt.xlabel(r'$\cos\theta^\prime_7$')
         plt.ylabel(r'$\cos\theta^\prime_9$')
         cbar = plt.colorbar()
-        cbar.set_label(r'$\frac{1}{\sigma}\frac{\mathrm{d}^2\sigma}{\mathrm{d}\cos\theta^\prime_7\mathrm{d}\cos\theta^\prime_9}$' + f' {epem_axis}{emem_axis}')
+        cbar.set_label(r'$\frac{1}{\sigma}\frac{\mathrm{d}^2\sigma}{\mathrm{d}\cos\theta^\prime_7\mathrm{d}\cos\theta^\prime_9}$' + f' {epem_axis}{emem_axis}'.upper())
         plt.tight_layout()
         plt.savefig(f'eem_uzl10_{epem_axis}{emem_axis}.pdf')
         np.savez(f'eem_uzl10_{epem_axis}{emem_axis}.npz', h=h, x=x, y=y)
@@ -82,7 +83,7 @@ for epem_axis, (P7, P8, W3) in zip('uzl', epem_events):
         #plt.xlabel(r'$\cos\theta^\prime_7$')
         #plt.ylabel(r'$\cos\theta^\prime_9$')
         #cbar = plt.colorbar()
-        #cbar.set_label(r'$\frac{1}{\sigma}\frac{\mathrm{d}^2\sigma}{\mathrm{d}\cos\theta^\prime_7\mathrm{d}\cos\theta^\prime_9}$' + f' {epem_axis}{emem_axis}')
+        #cbar.set_label(r'$\frac{1}{\sigma}\frac{\mathrm{d}^2\sigma}{\mathrm{d}\cos\theta^\prime_7\mathrm{d}\cos\theta^\prime_9}$' + f' {epem_axis}{emem_axis}'.upper())
         #plt.tight_layout()
         #plt.savefig(f'eem_uzl_{epem_axis}{emem_axis}10_contourf.pdf')
         #plt.clf()
