@@ -68,7 +68,7 @@ for epem_axis, (P7, P8, W3) in zip('uzl', epem_events):
         if emem_axis == 'z': emem_axis = 'r'
         cos_theta_9 = np.cos(np.arctan2(np.hypot(P9[:,1], P9[:,2]), P9[:,3]))
         W = W3 * W4
-        h, x, y, _ = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, density=True, norm=mcolors.LogNorm())
+        h, x, y, _ = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, weights=W, density=True, norm=mcolors.LogNorm())
         plt.xlabel(r'$\cos\theta^\prime_7$')
         plt.ylabel(r'$\cos\theta^\prime_9$')
         cbar = plt.colorbar()

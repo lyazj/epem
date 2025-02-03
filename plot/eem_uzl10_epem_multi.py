@@ -73,7 +73,7 @@ indexs = indexs[:indexs.shape[0] // 2]
 P7, P8, P9, P10, W = map(lambda x: x[indexs], (P7, P8, P9, P10, W))
 cos_theta_7 = np.cos(np.arctan2(np.hypot(P7[:,1], P7[:,2]), P7[:,3]))
 cos_theta_9 = np.cos(np.arctan2(np.hypot(P9[:,1], P9[:,2]), P9[:,3]))
-h, x, y, _, = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, density=True, norm=mcolors.LogNorm())
+h, x, y, _, = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, weights=W, density=True, norm=mcolors.LogNorm())
 plt.xlabel(r'$\cos\theta^\prime_7$')
 plt.ylabel(r'$\cos\theta^\prime_9$')
 cbar = plt.colorbar()

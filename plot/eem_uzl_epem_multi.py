@@ -73,12 +73,21 @@ indexs = indexs[:indexs.shape[0] // 2]
 P7, P8, P9, P10, W = map(lambda x: x[indexs], (P7, P8, P9, P10, W))
 cos_theta_7 = np.cos(np.arctan2(np.hypot(P7[:,1], P7[:,2]), P7[:,3]))
 cos_theta_9 = np.cos(np.arctan2(np.hypot(P9[:,1], P9[:,2]), P9[:,3]))
-h, x, y, _, = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, density=True, norm=mcolors.LogNorm())
+h, x, y, _, = plt.hist2d(cos_theta_7, cos_theta_9, bins=100, weights=W, density=True, norm=mcolors.LogNorm())
 plt.xlabel(r'$\cos\theta^\prime_7$')
 plt.ylabel(r'$\cos\theta^\prime_9$')
 cbar = plt.colorbar()
-cbar.set_label(r'$\frac{1}{\sigma}\frac{\mathrm{d}^2\sigma}{\mathrm{d}\cos\theta^\prime_7\mathrm{d}\cos\theta^\prime_9}$' + f' epem')
+cbar.set_label(r'$\frac{1}{\sigma}\frac{\mathrm{d}^2\sigma}{\mathrm{d}\cos\theta^\prime_7\mathrm{d}\cos\theta^\prime_9}$' + r' $\left(\text{LL} + \text{RR}\right)/\sqrt{2}$')
 plt.tight_layout()
 plt.savefig(f'eem_uzl_epem.pdf')
 np.savez('eem_uzl_epem.npz', h=h, x=x, y=y)
 plt.clf()
+
+W /= W.shape[0] * 1e6
+mask = np.logical_and(cos_theta_7 <= 0.5, np.logical_and(cos_theta_9 >= -0.75, cos_theta_9 <= 0.75))
+W = W[mask]
+W = W.sum()  # pb
+W *= 1e-12 * 1e-24 * 10 * 7.9 / 56 * 26 * 6.022e23
+W *= 1e-12 * 1e-24 * 10 * 7.9 / 56 * 26 * 6.022e23
+W *= 1.9e9
+print(W)
