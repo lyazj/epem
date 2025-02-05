@@ -9,6 +9,8 @@ assert np.abs(np.max(sig['x'] - bkg['x'])) < 1e-4
 assert np.abs(np.max(sig['y'] - bkg['y'])) < 1e-4
 x, y = sig['x'], sig['y']
 x, y = map(lambda x: np.mean([x[:-1], x[1:]], axis=0), (x, y))
+vsig = sig['v']
+vbkg = bkg['v']
 sig = sig['h']
 bkg = bkg['h']
 diff = (sig >= 1e-4).astype('float') - (bkg >= 1e-4).astype('float')
@@ -47,19 +49,24 @@ plt.clf()
 thr = -1 * np.ones(len(y), dtype='int')
 thr[jmin:jmax + 1] = np.argmax(x.reshape(-1, 1) >= thr_x[jmin:jmax + 1].reshape(1, -1), axis=0)
 print(thr)
-s, b = 0, 0
+s, b, vs, vb = 0, 0, 0, 0
 for j, imax in enumerate(thr):
     s += sig[:imax + 1, j].sum()
     b += bkg[:imax + 1, j].sum()
-r = sig[:int(len(x) * 0.75), int(len(y) * 0.125):int(len(y) * 0.875)].sum()
+    vs += vsig[:imax + 1, j].sum()
+    vb += vbkg[:imax + 1, j].sum()
+r = s / b
+vr = r * np.sqrt(vs / (s*s) + vb / (b*b))
 print(s)
 print(b)
 print(r)
-s -= np.maximum(0, b)
-sf = 1.4e2 / r  # 1 s
-print(sf)
-s *= sf
-b *= sf
-print(s)
-print(b)
-print(s / np.sqrt(b))
+print(vr)
+#r = sig[:int(len(x) * 0.75), int(len(y) * 0.125):int(len(y) * 0.875)].sum()
+#s -= np.maximum(0, b)
+#sf = 1.4e2 / r  # 1 s
+#print(sf)
+#s *= sf
+#b *= sf
+#print(s)
+#print(b)
+#print(s / np.sqrt(b))
